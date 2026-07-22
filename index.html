@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full antialiased">
+<head>
+  <meta charset="utf-8">
+  <!-- 1. Tambahkan viewport-fit=cover & user-scalable=no untuk tampilan optimal di HP -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Web Photobox</title>
+  
+  <meta name="description" content="Bikin photostrip lucu bareng teman atau pasangan!">
+  <meta name="theme-color" content="#FFF8FA">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            space: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Menangani Safe Area pada HP ber-notch (iPhone / Android modern) */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  </style>
+</head>
+<body class="min-h-dvh bg-[#FFF8FA] dark:bg-[#1F1319] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-[#EC4899]/20 transition-colors flex flex-col justify-between overflow-x-hidden">
+
+  <section class="min-h-dvh flex flex-col justify-between p-4 sm:p-8 max-w-4xl mx-auto text-center w-full">
+    
+    <!-- Header -->
+    <header class="py-2 flex justify-center items-center gap-2 shrink-0">
+      <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-[#EC4899] text-white font-bold shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path>
+          <circle cx="12" cy="13" r="3"></circle>
+        </svg>
+      </div>
+      <span class="text-lg font-black font-space tracking-tight">studio<span class="text-[#EC4899]">.bebe</span></span>
+    </header>
+
+    <!-- Hero Content -->
+    <main class="my-auto space-y-4 sm:space-y-6 py-6 sm:py-8 flex flex-col items-center justify-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EC4899]/10 text-[#EC4899] text-xs font-bold font-space">
+        🌸 Untuk Bebeekuuu 🎀
+      </div>
+
+      <!-- Ukuran teks disesuaikan untuk HP (text-3xl / text-4xl) hingga Desktop (text-6xl) -->
+      <h1 class="text-3xl xs:text-4xl sm:text-6xl font-black font-space tracking-tight leading-tight max-w-xs sm:max-w-none">
+        Bikin Photo<br>
+        <span class="inline-block bg-[#EC4899] text-white px-3 sm:px-4 py-1 my-1 rounded-2xl transform -rotate-1 shadow-md">Lucu & aesthetic</span><br>
+        Di Mana Aja.
+      </h1>
+
+      <p class="text-xs sm:text-base text-zinc-500 max-w-xs sm:max-w-md mx-auto font-medium leading-relaxed">
+        Aku coba buat ini biar nda game aja, seendaknya ada pelajaran yang bisa diambil
+      </p>
+
+      <!-- CTA Button ke Studio -->
+      <div class="pt-2 sm:pt-4 w-full sm:w-auto px-4 sm:px-0">
+        <a href="studio2.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#EC4899] active:bg-[#DB2777] text-white font-space font-extrabold text-sm sm:text-lg shadow-lg active:scale-95 transition-transform cursor-pointer">
+          <span>Mulai Sesi Foto Now 🎀</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </main>
+
+    <!-- Feature Grid -->
+    <footer class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-left shrink-0 pb-2">
+      <div class="p-2.5 sm:p-3 bg-white dark:bg-[#2A1B22] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs">
+        <div class="text-sm sm:text-base mb-1">📸</div>
+        <div class="font-bold text-xs">Auto Peace Shutter</div>
+        <div class="text-[9px] sm:text-[10px] text-zinc-400">Jepret otomatis pas angkat 2 jari</div>
+      </div>
+      <div class="p-2.5 sm:p-3 bg-white dark:bg-[#2A1B22] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs">
+        <div class="text-sm sm:text-base mb-1">🖼️</div>
+        <div class="font-bold text-xs">4-Shot Strip</div>
+        <div class="text-[9px] sm:text-[10px] text-zinc-400">Kolase ala photobox estetik</div>
+      </div>
+      <div class="p-2.5 sm:p-3 bg-white dark:bg-[#2A1B22] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs">
+        <div class="text-sm sm:text-base mb-1">🎀</div>
+        <div class="font-bold text-xs">Cute Frames</div>
+        <div class="text-[9px] sm:text-[10px] text-zinc-400">Bingkai coquette & filter lucu</div>
+      </div>
+      <div class="p-2.5 sm:p-3 bg-white dark:bg-[#2A1B22] rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs">
+        <div class="text-sm sm:text-base mb-1">🔒</div>
+        <div class="font-bold text-xs">100% Free & Local</div>
+        <div class="text-[9px] sm:text-[10px] text-zinc-400">Privasi terjaga, tanpa server</div>
+      </div>
+    </footer>
+  </section>
+
+</body>
+</html>
