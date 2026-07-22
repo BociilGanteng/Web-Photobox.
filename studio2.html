@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full antialiased">
+<head>
+  <meta charset="utf-8">
+  <!-- Dynamic Viewport untuk HP (Notch & Home Bar Safe-Area) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Studio Live</title>
+  <meta name="theme-color" content="#FFF8FA">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    @keyframes bouncePop {
+      0% { transform: scale(0.2); opacity: 0; }
+      50% { transform: scale(1.35); opacity: 1; }
+      75% { transform: scale(0.9); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-bounce-pop {
+      animation: bouncePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  </style>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            space: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-dvh bg-[#FFF8FA] dark:bg-[#1F1319] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-[#EC4899]/20 transition-colors flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Main Container -->
+  <div class="flex h-dvh max-h-dvh flex-col justify-between gap-2 sm:gap-4 px-2.5 sm:px-6 py-2 sm:py-4 overflow-hidden w-full">
+    
+    <!-- Header -->
+    <header class="flex w-full max-w-5xl mx-auto items-center justify-between px-1 shrink-0">
+      <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-[#EC4899] text-white shadow-xs font-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path>
+            <circle cx="12" cy="13" r="3"></circle>
+          </svg>
+        </div>
+        <span class="text-base sm:text-xl font-black font-space tracking-tight">
+          studio<span class="text-[#EC4899]">.bebe</span>
+        </span>
+      </a>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Audio Button -->
+        <button id="btn-audio" title="Musik" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#EC4899]/40 bg-[#EC4899]/15 text-[#EC4899] text-xs font-bold shadow-2xs transition-all cursor-pointer opacity-50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-bounce shrink-0">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+          </svg>
+          <span class="hidden md:inline font-sans">Sal Priadi</span>
+          <svg id="audio-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-0.5 shrink-0">
+            <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+            <path d="M16 9a5 5 0 0 1 0 6"></path>
+            <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+          </svg>
+        </button>
+
+        <!-- Status Badge -->
+        <div class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-full bg-white dark:bg-[#2A1B22] border border-zinc-200 dark:border-zinc-800 text-[10px] sm:text-xs font-space font-bold shadow-2xs shrink-0">
+          <span class="w-2 h-2 rounded-full shrink-0 bg-[#10B981]"></span>
+          <span class="uppercase tracking-wider">Live</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Camera / Viewport Area -->
+    <main class="relative flex-1 min-h-0 w-full max-w-5xl mx-auto overflow-hidden rounded-2xl sm:rounded-3xl border-2 border-zinc-200 dark:border-zinc-800 shadow-xl bg-black flex justify-center items-center">
+      <video id="webcam" playsinline muted class="absolute h-0 w-0 opacity-0"></video>
+      
+      <!-- PERBAIKAN: object-contain mencegah efek zoom/terpotong, image-rendering tajam -->
+      <canvas id="output-canvas" class="w-full h-full object-contain"></canvas>
+      
+      <!-- Loading & Error Overlay Kamera -->
+      <div id="camera-loading" class="absolute inset-0 bg-zinc-900/90 flex flex-col items-center justify-center text-white gap-3 z-20 px-4 text-center">
+        <div id="loading-spinner" class="w-8 h-8 border-4 border-[#EC4899] border-t-transparent rounded-full animate-spin"></div>
+        <p id="loading-text" class="text-xs sm:text-sm font-medium text-zinc-300">Menyiapkan kamera HD...</p>
+        <button id="btn-retry-camera" class="hidden mt-2 px-4 py-2 bg-[#EC4899] text-white text-xs font-bold rounded-xl shadow-md active:scale-95 transition-all">
+          Coba Lagi
+        </button>
+      </div>
+
+      <!-- Countdown Overlay -->
+      <div id="countdown-overlay" class="absolute inset-0 flex items-center justify-center z-30 pointer-events-none hidden">
+        <span id="countdown-text" class="text-7xl sm:text-[10rem] font-black font-space text-[#EC4899] drop-shadow-[0_10px_25px_rgba(0,0,0,0.8)] select-none">
+          3
+        </span>
+      </div>
+
+      <!-- Shot Badge Overlay -->
+      <div class="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-10">
+        <div class="bg-black/70 backdrop-blur-md text-white border border-white/20 font-mono text-[10px] sm:text-xs px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-lg font-bold flex items-center gap-1.5 sm:gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#EC4899] shrink-0 sm:w-3.5 sm:h-3.5">
+            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+            <path d="M7 3v18"></path>
+            <path d="M3 7.5h4"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 16.5h4"></path>
+            <path d="M17 3v18"></path>
+            <path d="M17 7.5h4"></path>
+            <path d="M17 16.5h4"></path>
+          </svg>
+          <span id="shot-counter" class="tracking-widest">SHOT 0 / 4</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Controls Bar -->
+    <section class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-3 p-2 sm:p-3.5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#2A1B22] border border-zinc-200 dark:border-zinc-800 shadow-sm shrink-0">
+      
+      <!-- Thumbnails Preview -->
+      <div class="flex items-center justify-center w-full sm:w-auto">
+        <div class="flex items-center gap-2 sm:gap-3 bg-white dark:bg-[#2A1B22] p-1 sm:p-2 rounded-2xl border border-zinc-100 dark:border-zinc-800/80">
+          
+          <div class="thumb-slot relative h-11 w-11 xs:h-12 xs:w-12 sm:h-16 sm:w-16 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800/50 shrink-0">
+            <div class="flex h-full w-full items-center justify-center text-xs sm:text-sm font-space font-extrabold text-zinc-400">01</div>
+          </div>
+
+          <div class="thumb-slot relative h-11 w-11 xs:h-12 xs:w-12 sm:h-16 sm:w-16 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800/50 shrink-0">
+            <div class="flex h-full w-full items-center justify-center text-xs sm:text-sm font-space font-extrabold text-zinc-400">02</div>
+          </div>
+
+          <div class="thumb-slot relative h-11 w-11 xs:h-12 xs:w-12 sm:h-16 sm:w-16 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800/50 shrink-0">
+            <div class="flex h-full w-full items-center justify-center text-xs sm:text-sm font-space font-extrabold text-zinc-400">03</div>
+          </div>
+
+          <div class="thumb-slot relative h-11 w-11 xs:h-12 xs:w-12 sm:h-16 sm:w-16 overflow-hidden rounded-xl sm:rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800/50 shrink-0">
+            <div class="flex h-full w-full items-center justify-center text-xs sm:text-sm font-space font-extrabold text-zinc-400">04</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Action Button & Tips -->
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-3">
+        <div class="hidden md:flex items-center gap-2 text-xs text-zinc-500 font-semibold px-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#EC4899] shrink-0">
+            <path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path>
+            <path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path>
+            <path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path>
+            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+          </svg>
+          <span>Pose Peace atau tekan Shutter</span>
+        </div>
+
+        <button id="btn-shutter" type="button" class="h-11 sm:h-14 px-5 sm:px-8 rounded-xl sm:rounded-2xl font-space text-xs sm:text-base font-extrabold shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer bg-[#EC4899] active:bg-[#DB2777] text-white active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shrink-0 w-full sm:w-auto group">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 transition-transform group-hover:scale-110 sm:w-4 sm:h-4">
+            <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path>
+            <circle cx="12" cy="13" r="3"></circle>
+          </svg>
+          <span id="shutter-text">Jepret Manual (3s)</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center shrink-0 space-y-0.5 pb-1 sm:pb-2">
+      <p class="text-xs sm:text-sm font-bold font-space tracking-tight">
+        studio<span class="text-[#EC4899]">.bebe</span>
+      </p>
+      <p class="text-[10px] sm:text-xs text-zinc-500 font-medium">
+        capture ur moments everywhere ✨
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+  <script type="module">
+    // --- 1. SETTING AUDIO & FIRST INTERACTION ---
+    const audioUrl = "Download.mp3"; 
+    const bgAudio = new Audio(audioUrl);
+    bgAudio.loop = true;
+    bgAudio.volume = 0.5;
+
+    const btnAudio = document.getElementById('btn-audio');
+    let isAudioPlaying = false;
+
+    async function playAudio() {
+      try {
+        await bgAudio.play();
+        isAudioPlaying = true;
+        btnAudio.classList.remove('opacity-50');
+      } catch (err) {
+        console.warn("Autoplay ditolak sampai ada interaksi user:", err);
+      }
+    }
+
+    function pauseAudio() {
+      bgAudio.pause();
+      isAudioPlaying = false;
+      btnAudio.classList.add('opacity-50');
+    }
+
+    btnAudio.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isAudioPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
+      }
+    });
+
+    function handleFirstUserInteraction() {
+      if (!isAudioPlaying) {
+        playAudio();
+      }
+      window.removeEventListener('click', handleFirstUserInteraction);
+      window.removeEventListener('touchstart', handleFirstUserInteraction);
+      window.removeEventListener('keydown', handleFirstUserInteraction);
+    }
+
+    window.addEventListener('click', handleFirstUserInteraction);
+    window.addEventListener('touchstart', handleFirstUserInteraction);
+    window.addEventListener('keydown', handleFirstUserInteraction);
+
+    // --- 2. SETTING KAMERA HD TAJAM & WIDE FOV (ANTI-ZOOM) ---
+    const video = document.getElementById('webcam');
+    const canvas = document.getElementById('output-canvas');
+    const ctx = canvas.getContext('2d');
+    const cameraLoading = document.getElementById('camera-loading');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const loadingText = document.getElementById('loading-text');
+    const btnRetryCamera = document.getElementById('btn-retry-camera');
+
+    let isCountingDown = false;
+    let isProcessingHand = false;
+
+    const hands = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+    });
+
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.7,
+      minTrackingConfidence: 0.7
+    });
+
+    function detectPeaceSign(landmarks) {
+      const isIndexUp = landmarks[8].y < landmarks[6].y;
+      const isMiddleUp = landmarks[12].y < landmarks[10].y;
+      const isRingDown = landmarks[16].y > landmarks[14].y;
+      const isPinkyDown = landmarks[20].y > landmarks[18].y;
+
+      return isIndexUp && isMiddleUp && isRingDown && isPinkyDown;
+    }
+
+    hands.onResults((results) => {
+      isProcessingHand = false;
+      if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+        const landmarks = results.multiHandLandmarks[0];
+        
+        if (detectPeaceSign(landmarks) && !isCountingDown && currentShot < maxShots) {
+          isCountingDown = true;
+          btnShutter.click();
+
+          setTimeout(() => {
+            isCountingDown = false;
+          }, 4500);
+        }
+      }
+    });
+
+    async function initCamera() {
+      cameraLoading.classList.remove('hidden');
+      loadingSpinner.classList.remove('hidden');
+      btnRetryCamera.classList.add('hidden');
+      loadingText.textContent = "Menyiapkan kamera HD...";
+
+      const isPortrait = window.innerHeight > window.innerWidth;
+      
+      // PERBAIKAN: Meminta Full HD (1920x1080) agar mendapatkan FOV terluas & gambar paling tajam
+      const constraints = {
+        video: {
+          facingMode: 'user',
+          width: { ideal: isPortrait ? 1080 : 1920 },
+          height: { ideal: isPortrait ? 1920 : 1080 }
+        },
+        audio: false
+      };
+
+      try {
+        if (video.srcObject) {
+          video.srcObject.getTracks().forEach(track => track.stop());
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+        
+        video.onloadedmetadata = async () => {
+          try {
+            await video.play();
+            
+            // Atur resolusi internal Canvas persis dengan resolusi asli sensor kamera
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Memastikan penanganan rendering canvas beresolusi tinggi (Sharp/Tajam)
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+
+            cameraLoading.classList.add('hidden');
+            requestAnimationFrame(renderLoop);
+          } catch (playErr) {
+            console.error("Gagal memutar video:", playErr);
+          }
+        };
+
+      } catch (err) {
+        console.error("Kamera Error:", err);
+        loadingSpinner.classList.add('hidden');
+        btnRetryCamera.classList.remove('hidden');
+
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+          loadingText.textContent = "Akses kamera ditolak. Mohon izinkan akses kamera di pengaturan browser Anda.";
+        } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+          loadingText.textContent = "Kamera tidak ditemukan pada perangkat ini.";
+        } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+          loadingText.textContent = "Kamera sedang digunakan oleh aplikasi lain. Harap tutup aplikasi tersebut.";
+        } else {
+          loadingText.textContent = "Gagal menghubungkan kamera. Silakan periksa kembali perangkat Anda.";
+        }
+      }
+    }
+
+    btnRetryCamera.addEventListener('click', initCamera);
+
+    async function renderLoop() {
+      if (video.readyState >= 2) {
+        ctx.save();
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        ctx.restore();
+
+        if (!isCountingDown && !isProcessingHand) {
+          isProcessingHand = true;
+          try {
+            await hands.send({ image: video });
+          } catch (e) {
+            isProcessingHand = false;
+          }
+        }
+      }
+      requestAnimationFrame(renderLoop);
+    }
+
+    // --- 3. FITUR JEPRET / SHUTTER ---
+    const btnShutter = document.getElementById('btn-shutter');
+    const shutterText = document.getElementById('shutter-text');
+    const shotBadge = document.getElementById('shot-counter');
+    const thumbnailSlots = document.querySelectorAll('.thumb-slot');
+
+    const countdownOverlay = document.getElementById('countdown-overlay');
+    const countdownText = document.getElementById('countdown-text');
+
+    let currentShot = 0;
+    const maxShots = 4;
+    const capturedImages = [];
+
+    btnShutter.addEventListener('click', () => {
+      if (currentShot >= maxShots) return;
+
+      let countdown = 3;
+      btnShutter.disabled = true;
+
+      countdownOverlay.classList.remove('hidden');
+
+      const playBounceAnimation = (num) => {
+        countdownText.textContent = num;
+        countdownText.classList.remove('animate-bounce-pop');
+        void countdownText.offsetWidth; 
+        countdownText.classList.add('animate-bounce-pop');
+      };
+
+      playBounceAnimation(countdown);
+
+      const timer = setInterval(() => {
+        countdown--;
+        shutterText.textContent = `Jepret dalam ${countdown}s...`;
+
+        if (countdown > 0) {
+          playBounceAnimation(countdown);
+        } else {
+          clearInterval(timer);
+          countdownOverlay.classList.add('hidden');
+          
+          takeSnapshot();
+          
+          if (currentShot < maxShots) {
+            btnShutter.disabled = false;
+            shutterText.textContent = "Jepret Manual (3s)";
+          }
+        }
+      }, 1000);
+    });
+
+    function takeSnapshot() {
+      const snapCanvas = document.createElement('canvas');
+      snapCanvas.width = canvas.width;
+      snapCanvas.height = canvas.height;
+      const snapCtx = snapCanvas.getContext('2d');
+
+      // Aktifkan kualitas gambar tertinggi saat menyimpan
+      snapCtx.imageSmoothingEnabled = true;
+      snapCtx.imageSmoothingQuality = 'high';
+      snapCtx.drawImage(canvas, 0, 0);
+
+      // Gunakan PNG / JPEG kualitas maksimal (1.0)
+      const imageDataUrl = snapCanvas.toDataURL('image/jpeg', 1.0);
+      capturedImages.push(imageDataUrl);
+
+      if (thumbnailSlots[currentShot]) {
+        thumbnailSlots[currentShot].innerHTML = `<img src="${imageDataUrl}" class="w-full h-full object-cover rounded-xl" />`;
+      }
+
+      currentShot++;
+      shotBadge.textContent = `SHOT ${currentShot} / ${maxShots}`;
+
+      const flashDiv = document.createElement('div');
+      flashDiv.className = 'absolute inset-0 bg-white z-50 transition-opacity duration-300 opacity-100 pointer-events-none';
+      canvas.parentElement.appendChild(flashDiv);
+      
+      setTimeout(() => {
+        flashDiv.style.opacity = '0';
+        setTimeout(() => flashDiv.remove(), 300);
+      }, 50);
+
+      if (currentShot >= maxShots) {
+        try {
+          localStorage.setItem('capturedPhotos', JSON.stringify(capturedImages));
+        } catch (e) {
+          console.error("Storage full:", e);
+        }
+        
+        shutterText.textContent = "Memproses...";
+        btnShutter.disabled = true;
+
+        setTimeout(() => {
+          window.location.href = './edit2.html';
+        }, 1200);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initCamera();
+    });
+
+    window.addEventListener('orientationchange', () => {
+      setTimeout(initCamera, 300);
+    });
+  </script>
+</body>
+</html>

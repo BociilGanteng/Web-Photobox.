@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full antialiased">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Studio Edit</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            space: ['"Space Grotesk"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-dvh bg-[#FAF0F2] dark:bg-[#180E13] text-zinc-900 dark:text-zinc-100 font-sans selection:bg-[#EC4899]/20 pb-10">
+
+  <div class="max-w-7xl mx-auto w-full px-4 pt-4 space-y-3">
+    
+    <header class="flex items-center justify-between p-2.5 px-5 bg-white dark:bg-[#25171E] rounded-full border border-pink-100 dark:border-zinc-800 shadow-xs">
+      <div class="flex items-center gap-2.5">
+        <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <div class="flex h-8 w-8 items-center justify-center rounded-full bg-[#EC4899] text-white font-bold shadow-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+          </div>
+          <span class="text-base sm:text-lg font-black font-space tracking-tight">studio <span class="text-[#EC4899]">.bebe</span></span>
+        </a>
+        <span class="text-xs px-2.5 py-0.5 rounded-full bg-pink-50 dark:bg-pink-950/40 text-[#EC4899] font-bold border border-pink-100 dark:border-pink-900/40">Studio Edit 🎀</span>
+      </div>
+
+      <div class="flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-[#2A1B22] border border-pink-100 dark:border-zinc-800 text-xs font-bold font-space text-zinc-700 dark:text-zinc-200 shadow-2xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>4 Foto Siap Dihias</span>
+      </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-3">
+      
+      <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#25171E] border border-pink-100 dark:border-zinc-800 text-[11px] font-black font-space text-zinc-700 dark:text-zinc-200 shadow-2xs uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>KANVAS PRATINJAU STUDIO</span>
+        </div>
+
+        <button id="btn-toggle-live" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#EC4899] hover:bg-[#DB2777] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.934a.5.5 0 0 0-.777-.416L16 11"></path><rect width="14" height="12" x="2" y="6" rx="2"></rect></svg>
+          <span>Live Photo</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-extrabold">ON ✨</span>
+        </button>
+        
+        <a href="studio.html" class="flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-white dark:bg-[#25171E] border border-pink-100 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs font-bold shadow-2xs hover:bg-pink-50 dark:hover:bg-zinc-800 transition-all">
+          🔄 Ulang dari Awal
+        </a>
+      </div>
+
+      <div class="flex items-center gap-1 p-1 bg-white dark:bg-[#25171E] rounded-full border border-pink-100 dark:border-zinc-800 shadow-2xs w-full lg:w-auto overflow-x-auto">
+        <button class="tab-btn active px-4 py-1.5 rounded-full font-space font-bold text-xs bg-[#EC4899] text-white shadow-xs transition-all cursor-pointer flex items-center gap-1.5" data-tab="tab-layout">
+          <span>⊞</span> Layout
+        </button>
+        <button class="tab-btn px-4 py-1.5 rounded-full font-space font-bold text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all cursor-pointer flex items-center gap-1.5" data-tab="tab-cover">
+          <span>✨</span> Cover
+        </button>
+        <button class="tab-btn px-4 py-1.5 rounded-full font-space font-bold text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all cursor-pointer flex items-center gap-1.5" data-tab="tab-filter">
+          <span>🪄</span> Filter
+        </button>
+        <button class="tab-btn px-4 py-1.5 rounded-full font-space font-bold text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all cursor-pointer flex items-center gap-1.5" data-tab="tab-frame">
+          <span>🎨</span> Bingkai
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto w-full px-4 mt-3 grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+    
+    <!-- Left Section: Dynamic Responsive Preview Canvas -->
+    <section class="lg:col-span-5 flex flex-col items-center justify-center p-4 sm:p-6 bg-white dark:bg-[#25171E] rounded-[2.5rem] border border-pink-100 dark:border-zinc-800 shadow-xs lg:sticky lg:top-4 min-h-[500px] lg:min-h-[620px] w-full">
+      
+      <!-- Auto Resizing Canvas Card -->
+      <div id="photostrip-card" class="relative w-full max-w-xs sm:max-w-sm p-4 rounded-3xl bg-pink-100 dark:bg-zinc-900 shadow-2xl transition-all duration-300 space-y-3 overflow-hidden border border-pink-200/50 mx-auto">
+        
+        <div id="photostrip-header" class="text-center pt-1 border-b border-zinc-800/20 dark:border-zinc-200/20 pb-2">
+          <p class="text-[9px] tracking-widest font-mono text-zinc-600 dark:text-zinc-400 uppercase">VOL. 01 — NO. 328 — GRATIS</p>
+          <h1 class="font-serif text-xl font-black tracking-tight text-zinc-900 dark:text-zinc-100 uppercase">studio.bebe</h1>
+          <p class="font-serif italic text-[10px] text-zinc-700 dark:text-zinc-300 flex items-center justify-center gap-1">
+            "Today wasn't just an ordinary day" <span class="text-[#EC4899]">🎀💖</span>
+          </p>
+        </div>
+
+        <div id="sticker-overlay" class="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-3"></div>
+
+        <div id="photo-grid-container" class="grid grid-cols-1 gap-2.5 relative z-0 w-full">
+          <div class="photo-item aspect-4/3 bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300">
+            <img id="img-preview-1" src="https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+1" class="w-full h-full object-cover filter-target transition-all duration-150" />
+          </div>
+          <div class="photo-item aspect-4/3 bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300">
+            <img id="img-preview-2" src="https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+2" class="w-full h-full object-cover filter-target transition-all duration-150" />
+          </div>
+          <div class="photo-item aspect-4/3 bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300">
+            <img id="img-preview-3" src="https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+3" class="w-full h-full object-cover filter-target transition-all duration-150" />
+          </div>
+          <div class="photo-item aspect-4/3 bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300">
+            <img id="img-preview-4" src="https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+4" class="w-full h-full object-cover filter-target transition-all duration-150" />
+          </div>
+        </div>
+
+        <div class="pt-1 text-center relative z-0">
+          <p id="caption-preview" class="font-space text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide break-words">
+            studio.bebe 💖
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center max-w-xs">
+        <p class="text-[11px] text-zinc-500 font-medium">💡 <strong>Tip:</strong> Gunakan panel tab di kanan untuk mengkostumisasi layout, tema, dan filter!</p>
+      </div>
+
+    </section>
+
+    <!-- Right Section: Customization Toolbar -->
+    <section class="lg:col-span-7 bg-white dark:bg-[#25171E] p-6 rounded-[2.5rem] border border-pink-100 dark:border-zinc-800 shadow-xs min-h-[620px] flex flex-col justify-between w-full">
+      
+      <div class="space-y-5">
+        
+        <div id="tab-layout" class="tab-content space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-space font-extrabold text-sm text-zinc-800 dark:text-zinc-100 flex items-center gap-1.5">
+              <span>⊞</span> PILIH TATA LETAK (9 OPSI)
+            </h3>
+            <span class="px-2.5 py-0.5 rounded-full bg-pink-100 dark:bg-pink-950/60 text-[#EC4899] font-bold text-[10px] font-space border border-pink-200 dark:border-pink-900">
+              Coquette Mode
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+            <button class="btn-layout p-3 border-2 border-[#EC4899] bg-[#EC4899]/5 rounded-2xl text-left font-space transition-all cursor-pointer relative" data-layout="strip-1x4">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-[#EC4899] text-white font-black">STRIP</span>
+              <div class="text-xs font-black text-[#EC4899]">Strip 1x4</div>
+              <div class="text-[10px] text-zinc-400">4 Foto Vertikal</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="strip-3cut">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">STRIP</span>
+              <div class="text-xs font-bold">Strip 3-Cut</div>
+              <div class="text-[10px] text-zinc-400">3 Foto Panjang</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="grid-2x2">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">GRID</span>
+              <div class="text-xs font-bold">Grid 2x2</div>
+              <div class="text-[10px] text-zinc-400">KOTAK 4 FOTO</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="purikura-4">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">GRID</span>
+              <div class="text-xs font-bold">Purikura 4-Cut</div>
+              <div class="text-[10px] text-zinc-400">Gaya Kartu Jepang</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="scrapbook">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">GRID</span>
+              <div class="text-xs font-bold">Scrapbook Wash</div>
+              <div class="text-[10px] text-zinc-400">Gaya Buku Kliping</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="y2k-checker">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">STRIP</span>
+              <div class="text-xs font-bold">Y2K Checker</div>
+              <div class="text-[10px] text-zinc-400">Motif Catur Cyber</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="spotlight">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">GRID</span>
+              <div class="text-xs font-bold">Spotlight</div>
+              <div class="text-[10px] text-zinc-400">1 Besar 3 Kecil</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="editorial">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">GRID</span>
+              <div class="text-xs font-bold">Editorial Vogue</div>
+              <div class="text-[10px] text-zinc-400">Gaya Majalah Fashion</div>
+            </button>
+
+            <button class="btn-layout p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space hover:border-[#EC4899] transition-all cursor-pointer relative" data-layout="newspaper">
+              <span class="absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold">STRIP</span>
+              <div class="text-xs font-bold">Newspaper</div>
+              <div class="text-[10px] text-zinc-400">Koran Vintage Klasik</div>
+            </button>
+          </div>
+
+          <div class="pt-3 border-t border-pink-100 dark:border-zinc-800 space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="font-space font-extrabold text-xs text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                <span>🔀</span> TUKAR URUTAN FOTO
+              </h4>
+              <span class="text-[10px] text-zinc-400">Klik 2 foto untuk menukar urutan posisi</span>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2">
+              <button class="btn-swap-photo relative aspect-4/3 rounded-xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-700 hover:border-[#EC4899] transition-all cursor-pointer" data-index="0">
+                <span class="absolute top-1 left-1 bg-black/60 text-white font-mono font-bold text-[9px] px-1.5 rounded-md">#1</span>
+                <img id="thumb-swap-1" src="https://via.placeholder.com/150x100/18181b/ffffff?text=1" class="w-full h-full object-cover" />
+              </button>
+              <button class="btn-swap-photo relative aspect-4/3 rounded-xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-700 hover:border-[#EC4899] transition-all cursor-pointer" data-index="1">
+                <span class="absolute top-1 left-1 bg-black/60 text-white font-mono font-bold text-[9px] px-1.5 rounded-md">#2</span>
+                <img id="thumb-swap-2" src="https://via.placeholder.com/150x100/18181b/ffffff?text=2" class="w-full h-full object-cover" />
+              </button>
+              <button class="btn-swap-photo relative aspect-4/3 rounded-xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-700 hover:border-[#EC4899] transition-all cursor-pointer" data-index="2">
+                <span class="absolute top-1 left-1 bg-black/60 text-white font-mono font-bold text-[9px] px-1.5 rounded-md">#3</span>
+                <img id="thumb-swap-3" src="https://via.placeholder.com/150x100/18181b/ffffff?text=3" class="w-full h-full object-cover" />
+              </button>
+              <button class="btn-swap-photo relative aspect-4/3 rounded-xl overflow-hidden border-2 border-zinc-200 dark:border-zinc-700 hover:border-[#EC4899] transition-all cursor-pointer" data-index="3">
+                <span class="absolute top-1 left-1 bg-black/60 text-white font-mono font-bold text-[9px] px-1.5 rounded-md">#4</span>
+                <img id="thumb-swap-4" src="https://via.placeholder.com/150x100/18181b/ffffff?text=4" class="w-full h-full object-cover" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-cover" class="tab-content hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-space font-extrabold text-sm text-zinc-800 dark:text-zinc-100 flex items-center gap-1.5">
+              <span>✨</span> Pilih Cover & Header
+            </h3>
+            <span class="px-2.5 py-0.5 rounded-full bg-pink-100 dark:bg-pink-950/60 text-[#EC4899] font-bold text-[10px] font-space border border-pink-200 dark:border-pink-900">
+              35 Styles
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[320px] overflow-y-auto pr-1">
+            <button class="btn-cover p-3 border-2 border-[#EC4899] bg-[#EC4899]/5 rounded-2xl text-left transition-all cursor-pointer" data-cover="bunny">
+              <div class="text-xs font-extrabold text-[#EC4899]">Purikura Bunny 🐰</div>
+              <div class="text-[10px] text-zinc-400">Stiker kelinci, pita & wortel 💖</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="kpop">
+              <div class="text-xs font-bold">K-Pop Idol 4-Cut ⭐</div>
+              <div class="text-[10px] text-zinc-400">Hand heart 🫶, crown 👑 & lightstick</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="kawaii">
+              <div class="text-xs font-bold">Kawaii Purikura 🌸</div>
+              <div class="text-[10px] text-zinc-400">Permen, es krim 🍦, musik & smile</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="coquette-angel">
+              <div class="text-xs font-bold">Coquette Angel 👼</div>
+              <div class="text-[10px] text-zinc-400">Pita pink di sudut, sayap 🪽 & sparkle</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="y2k">
+              <div class="text-xs font-bold">Y2K Sweetheart 💖</div>
+              <div class="text-[10px] text-zinc-400">Cyber heart, bintang pixel & OMG text</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="scrapbook">
+              <div class="text-xs font-bold">Scrap Diary 📖</div>
+              <div class="text-[10px] text-zinc-400">Wash tape, perangko & bunga kering</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="studio-modern">
+              <div class="text-xs font-bold">Studio Modern 🏛️</div>
+              <div class="text-[10px] text-zinc-400">Desain studio modern & komersial</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="ribbon">
+              <div class="text-xs font-bold">Coquette Ribbon 🎀</div>
+              <div class="text-[10px] text-zinc-400">Pita lucu & heart aesthetic 💖</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="kodak">
+              <div class="text-xs font-bold">Kodak 35mm 📷</div>
+              <div class="text-[10px] text-zinc-400">Strip analog film & sprocket holes</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="editorial">
+              <div class="text-xs font-bold">Editorial Vogue 📰</div>
+              <div class="text-[10px] text-zinc-400">Gaya majalah fashion & serif font</div>
+            </button>
+            <button class="btn-cover p-3 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left transition-all hover:border-[#EC4899] cursor-pointer" data-cover="none">
+              <div class="text-xs font-bold">Minimal Clean ⚪</div>
+              <div class="text-[10px] text-zinc-400">Desain bersih tanpa ornamen</div>
+            </button>
+          </div>
+        </div>
+
+        <div id="tab-filter" class="tab-content hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-space font-extrabold text-sm text-zinc-800 dark:text-zinc-100 flex items-center gap-1.5">
+              <span>🪄</span> Filter & Penyesuaian
+            </h3>
+
+            <div class="flex items-center p-1 bg-pink-50 dark:bg-zinc-800 rounded-full text-xs font-bold font-space border border-pink-100 dark:border-zinc-700">
+              <button id="subtab-preset-btn" class="px-3.5 py-1 rounded-full bg-white dark:bg-zinc-700 text-[#EC4899] dark:text-pink-300 shadow-2xs cursor-pointer">
+                ✨ Preset (12)
+              </button>
+              <button id="subtab-adjust-btn" class="px-3.5 py-1 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer">
+                🎛️ Atur Warna
+              </button>
+            </div>
+          </div>
+
+          <div id="panel-presets-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 max-h-[260px] overflow-y-auto pr-1">
+            <button class="btn-preset p-2.5 border-2 border-[#EC4899] bg-[#EC4899]/5 rounded-2xl text-left font-space transition-all cursor-pointer" data-preset="none">
+              <div class="text-xs font-bold text-[#EC4899]">Original</div>
+              <div class="text-[10px] text-zinc-400">Warna asli tajam</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="grayscale(100%)">
+              <div class="text-xs font-bold">Monochrome</div>
+              <div class="text-[10px] text-zinc-400">Hitam putih klasik</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="sepia(40%) contrast(110%) brightness(105%)">
+              <div class="text-xs font-bold">Kodak Gold</div>
+              <div class="text-[10px] text-zinc-400">Nuansa hangat film</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="brightness(110%) saturate(120%) hue-rotate(340deg)">
+              <div class="text-xs font-bold">Pastel Dream</div>
+              <div class="text-[10px] text-zinc-400">Lembut & cerah berseri</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="contrast(130%) saturate(150%)">
+              <div class="text-xs font-bold">Vivid Pop</div>
+              <div class="text-[10px] text-zinc-400">Saturasi & kontras tajam</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="hue-rotate(180deg) saturate(130%)">
+              <div class="text-xs font-bold">Y2K Cyber</div>
+              <div class="text-[10px] text-zinc-400">Tone sejuk kebiruan</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="sepia(60%) hue-rotate(310deg) brightness(95%)">
+              <div class="text-xs font-bold">Warm Latte ☕</div>
+              <div class="text-[10px] text-zinc-400">Cokelat hangat kafe</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="hue-rotate(320deg) saturate(140%) brightness(105%)">
+              <div class="text-xs font-bold">Coquette Rose 🌹</div>
+              <div class="text-[10px] text-zinc-400">Pink manis romantis</div>
+            </button>
+            <button class="btn-preset p-2.5 border border-zinc-200 dark:border-zinc-700 rounded-2xl text-left font-space transition-all hover:border-[#EC4899] cursor-pointer" data-preset="sepia(80%) contrast(120%)">
+              <div class="text-xs font-bold">Retro Sepia</div>
+              <div class="text-[10px] text-zinc-400">Nuansa vintage 70-an</div>
+            </button>
+          </div>
+
+          <div id="panel-adjustments" class="space-y-3 hidden">
+            <div class="flex items-center justify-between p-2 px-3 rounded-full bg-pink-50/70 dark:bg-zinc-800/60 border border-pink-100 dark:border-zinc-700">
+              <div class="flex items-center gap-2 text-xs font-bold">
+                <span class="text-zinc-500">Preset Aktif:</span>
+                <span id="badge-active-preset" class="px-3 py-0.5 rounded-full bg-white dark:bg-zinc-700 text-[#EC4899] font-black border border-pink-100 dark:border-zinc-600 shadow-2xs">
+                  Original
+                </span>
+              </div>
+              <button id="btn-reset-sliders" class="flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full bg-white dark:bg-zinc-700 text-[#EC4899] border border-pink-100 dark:border-zinc-600 hover:bg-pink-50 transition-all cursor-pointer shadow-2xs">
+                <span>🔄 Reset</span>
+              </button>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="p-3 px-4 rounded-2xl bg-[#FFF5F7] dark:bg-zinc-800/50 border border-pink-100/80 dark:border-zinc-700 space-y-1.5">
+                <div class="flex items-center justify-between text-xs font-bold">
+                  <span class="text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">☀️ Kecerahan (Brightness)</span>
+                  <span id="val-brightness" class="text-[#EC4899] font-black">100%</span>
+                </div>
+                <input id="slider-brightness" type="range" min="50" max="150" value="100" class="w-full accent-[#EC4899] cursor-pointer" />
+              </div>
+
+              <div class="p-3 px-4 rounded-2xl bg-[#FFF5F7] dark:bg-zinc-800/50 border border-pink-100/80 dark:border-zinc-700 space-y-1.5">
+                <div class="flex items-center justify-between text-xs font-bold">
+                  <span class="text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">🌓 Kontras (Contrast)</span>
+                  <span id="val-contrast" class="text-[#EC4899] font-black">100%</span>
+                </div>
+                <input id="slider-contrast" type="range" min="50" max="150" value="100" class="w-full accent-[#EC4899] cursor-pointer" />
+              </div>
+
+              <div class="p-3 px-4 rounded-2xl bg-[#FFF5F7] dark:bg-zinc-800/50 border border-pink-100/80 dark:border-zinc-700 space-y-1.5">
+                <div class="flex items-center justify-between text-xs font-bold">
+                  <span class="text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">💧 Saturasi (Saturation)</span>
+                  <span id="val-saturate" class="text-[#EC4899] font-black">100%</span>
+                </div>
+                <input id="slider-saturate" type="range" min="0" max="200" value="100" class="w-full accent-[#EC4899] cursor-pointer" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-frame" class="tab-content hidden space-y-4">
+          <h3 class="font-space font-extrabold text-sm text-zinc-800 dark:text-zinc-100 flex items-center gap-1.5">
+            <span>🎨</span> Bingkai & Caption
+          </h3>
+
+          <div class="space-y-1.5">
+            <label for="input-caption" class="block font-space font-extrabold text-xs text-zinc-700 dark:text-zinc-300">
+              ✏️ Teks Caption (Max 30 Karakter)
+            </label>
+            <input id="input-caption" type="text" value="fotokita.space 💖" maxlength="30" class="w-full px-4 py-2.5 rounded-2xl border border-pink-100 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 font-bold text-xs focus:outline-none focus:ring-2 focus:ring-[#EC4899]" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label class="block font-space font-extrabold text-xs text-zinc-700 dark:text-zinc-300">PASTEL LUCU</label>
+            <div class="flex items-center flex-wrap gap-2.5">
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-pink-100 ring-2 ring-offset-2 ring-[#EC4899] cursor-pointer hover:scale-110 transition-all" data-color="bg-pink-100" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-white border border-zinc-300 cursor-pointer hover:scale-110 transition-all" data-color="bg-white" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-orange-100 cursor-pointer hover:scale-110 transition-all" data-color="bg-amber-100" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-sky-100 cursor-pointer hover:scale-110 transition-all" data-color="bg-sky-100" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-emerald-100 cursor-pointer hover:scale-110 transition-all" data-color="bg-emerald-100" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-yellow-100 cursor-pointer hover:scale-110 transition-all" data-color="bg-yellow-100" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-purple-100 cursor-pointer hover:scale-110 transition-all" data-color="bg-purple-100" data-textcolor="text-zinc-800"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-rose-200 cursor-pointer hover:scale-110 transition-all" data-color="bg-rose-200" data-textcolor="text-zinc-800"></button>
+            </div>
+          </div>
+
+          <div class="space-y-1.5 pt-1">
+            <label class="block font-space font-extrabold text-xs text-zinc-700 dark:text-zinc-300">BOLD KLASIK</label>
+            <div class="flex items-center flex-wrap gap-2.5">
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-[#EC4899] cursor-pointer hover:scale-110 transition-all" data-color="bg-[#EC4899]" data-textcolor="text-white"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-zinc-900 cursor-pointer hover:scale-110 transition-all" data-color="bg-zinc-900" data-textcolor="text-white"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-red-600 cursor-pointer hover:scale-110 transition-all" data-color="bg-red-600" data-textcolor="text-white"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-indigo-900 cursor-pointer hover:scale-110 transition-all" data-color="bg-indigo-900" data-textcolor="text-white"></button>
+              <button class="btn-color-frame w-7 h-7 rounded-full bg-teal-800 cursor-pointer hover:scale-110 transition-all" data-color="bg-teal-800" data-textcolor="text-white"></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-4 mt-6 border-t border-pink-100 dark:border-zinc-800 space-y-3">
+        
+        <div class="flex items-center justify-between">
+          <h4 class="font-space font-extrabold text-xs text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5">
+            <span>📥</span> Simpan & Bagikan
+          </h4>
+          <span class="text-[10px] text-zinc-400 font-medium">Gratis & Tanpa Watermark</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2.5">
+          
+          <button id="btn-download-image" class="p-3.5 px-4 rounded-2xl bg-pink-50/80 dark:bg-zinc-800/80 border border-pink-200 dark:border-zinc-700 hover:border-[#EC4899] transition-all cursor-pointer flex items-center justify-between group active:scale-98">
+            <div class="text-left space-y-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-space font-black text-xs text-zinc-800 dark:text-zinc-100">Simpan Foto Statis</span>
+                <span class="px-2 py-0.2 rounded-md bg-[#EC4899] text-white font-extrabold text-[9px]">PNG HD</span>
+              </div>
+              <p class="text-[10px] text-zinc-500 dark:text-zinc-400 font-medium">Resolusi Tinggi • Jernih & siap cetak</p>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-white dark:bg-zinc-700 text-[#EC4899] flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+            </div>
+          </button>
+
+          <button id="btn-download-video" class="p-3.5 px-4 rounded-2xl bg-gradient-to-r from-zinc-900 to-zinc-800 text-white shadow-md hover:opacity-95 transition-all cursor-pointer flex items-center justify-between group active:scale-98">
+            <div class="text-left space-y-0.5">
+              <div class="flex items-center gap-2">
+                <span class="font-space font-black text-xs text-white">Simpan Video Live</span>
+                <span class="px-2 py-0.2 rounded-md bg-amber-400 text-zinc-900 font-extrabold text-[9px] flex items-center gap-1">
+                  <span>⚡</span> MP4 / REEL
+                </span>
+              </div>
+              <p class="text-[10px] text-zinc-300 font-medium">Efek gerak Boomerang + Story, TikTok & Reels</p>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-white/10 text-amber-300 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect width="15" height="14" x="1" y="5" rx="2" ry="2"></rect></svg>
+            </div>
+          </button>
+
+        </div>
+
+        <div class="flex items-center gap-2 pt-1">
+          <button id="btn-share" class="flex-1 py-2 px-3 rounded-full bg-pink-100 dark:bg-zinc-800 text-[#EC4899] dark:text-pink-300 font-space font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-pink-200 transition-all cursor-pointer">
+            <span>🔗</span> Share
+          </button>
+          <a href="studio.html" class="flex-1 py-2 px-3 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-space font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-zinc-200 transition-all text-center">
+            <span>🔄</span> Ulang
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script type="module">
+    // --- 1. LOAD FOTO DARI LOCALSTORAGE ---
+    let photoDataList = [];
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedPhotos = JSON.parse(localStorage.getItem('capturedPhotos') || '[]');
+      photoDataList = savedPhotos.length > 0 ? savedPhotos : [
+        'https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+1',
+        'https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+2',
+        'https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+3',
+        'https://via.placeholder.com/400x300/18181b/ffffff?text=SHOT+4'
+      ];
+      renderPhotoImages();
+    });
+
+    function renderPhotoImages() {
+      for (let i = 0; i < 4; i++) {
+        const imgElem = document.getElementById(`img-preview-${i + 1}`);
+        const thumbElem = document.getElementById(`thumb-swap-${i + 1}`);
+        if (imgElem && photoDataList[i]) imgElem.src = photoDataList[i];
+        if (thumbElem && photoDataList[i]) thumbElem.src = photoDataList[i];
+      }
+    }
+
+    // --- 2. SWITCH TAB UTAMA ---
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+
+        tabBtns.forEach(b => {
+          b.classList.remove('active', 'bg-[#EC4899]', 'text-white', 'shadow-xs');
+          b.classList.add('text-zinc-500', 'dark:text-zinc-400');
+        });
+
+        btn.classList.add('active', 'bg-[#EC4899]', 'text-white', 'shadow-xs');
+        btn.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+
+        tabContents.forEach(content => {
+          if (content.id === targetTab) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // --- 3. DYNAMIC 9 LAYOUT OPTIONS SWITCHER ---
+    const layoutBtns = document.querySelectorAll('.btn-layout');
+    const photoGridContainer = document.getElementById('photo-grid-container');
+
+    function applyLayoutStyle(layout) {
+      if (!photoGridContainer) return;
+      const items = Array.from(photoGridContainer.children);
+
+      // Reset semua item ke tampilan default
+      items.forEach((item) => {
+        item.style.display = 'block';
+        item.className = 'photo-item aspect-4/3 bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+        item.style.transform = 'none';
+      });
+
+      switch (layout) {
+        case 'strip-1x4':
+          photoGridContainer.className = 'grid grid-cols-1 gap-2.5 relative z-0 w-full';
+          break;
+
+        case 'strip-3cut':
+          photoGridContainer.className = 'grid grid-cols-1 gap-2.5 relative z-0 w-full';
+          if (items[3]) items[3].style.display = 'none';
+          items.slice(0, 3).forEach(item => {
+            item.className = 'photo-item aspect-16/9 bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+          });
+          break;
+
+        case 'grid-2x2':
+          photoGridContainer.className = 'grid grid-cols-2 gap-2 relative z-0 w-full';
+          items.forEach(item => {
+            item.className = 'photo-item aspect-square bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+          });
+          break;
+
+        case 'purikura-4':
+          photoGridContainer.className = 'grid grid-cols-2 gap-2.5 relative z-0 p-2 bg-pink-200/60 dark:bg-pink-900/40 rounded-2xl border-2 border-pink-300 dark:border-pink-800 w-full';
+          items.forEach(item => {
+            item.className = 'photo-item aspect-4/3 bg-zinc-900 rounded-xl overflow-hidden relative shadow-sm border border-pink-300 transition-all duration-300';
+          });
+          break;
+
+        case 'scrapbook':
+          photoGridContainer.className = 'grid grid-cols-2 gap-3 relative z-0 p-2 bg-amber-50/70 dark:bg-amber-950/40 rounded-2xl border border-dashed border-amber-300 w-full';
+          const angles = ['-3deg', '3deg', '2deg', '-2deg'];
+          items.forEach((item, i) => {
+            item.className = 'photo-item aspect-4/3 bg-zinc-900 rounded-xl overflow-hidden relative shadow-md border-2 border-white transition-all duration-300';
+            item.style.transform = `rotate(${angles[i % 4]})`;
+          });
+          break;
+
+        case 'y2k-checker':
+          photoGridContainer.className = 'grid grid-cols-2 gap-2 relative z-0 p-2 bg-zinc-900 rounded-2xl border-2 border-pink-500 shadow-lg w-full';
+          items.forEach((item, i) => {
+            item.className = `photo-item aspect-square bg-zinc-900 rounded-lg overflow-hidden relative border-2 ${i % 2 === 0 ? 'border-pink-500' : 'border-cyan-400'} transition-all duration-300`;
+          });
+          break;
+
+        case 'spotlight':
+          photoGridContainer.className = 'grid grid-cols-3 gap-2 relative z-0 w-full';
+          if (items[0]) {
+            items[0].className = 'photo-item col-span-3 aspect-video bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+          }
+          items.slice(1).forEach(item => {
+            item.className = 'photo-item col-span-1 aspect-square bg-zinc-900 rounded-xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+          });
+          break;
+
+        case 'editorial':
+          photoGridContainer.className = 'grid grid-cols-2 gap-2 relative z-0 w-full';
+          if (items[0]) {
+            items[0].className = 'photo-item col-span-2 aspect-video bg-zinc-900 rounded-2xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+          }
+          items.slice(1).forEach(item => {
+            item.className = 'photo-item col-span-1 aspect-square bg-zinc-900 rounded-xl overflow-hidden relative shadow-inner border-2 border-zinc-900 transition-all duration-300';
+          });
+          break;
+
+        case 'newspaper':
+          photoGridContainer.className = 'grid grid-cols-1 gap-2 relative z-0 border-y-2 border-zinc-800 dark:border-zinc-200 py-2 w-full';
+          items.forEach(item => {
+            item.className = 'photo-item aspect-16/9 bg-zinc-900 rounded-lg overflow-hidden relative shadow-xs border border-zinc-700 transition-all duration-300';
+          });
+          break;
+      }
+    }
+
+    layoutBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedLayout = btn.getAttribute('data-layout');
+
+        layoutBtns.forEach(b => {
+          b.classList.remove('border-2', 'border-[#EC4899]', 'bg-[#EC4899]/5');
+          b.classList.add('border-zinc-200', 'dark:border-zinc-700');
+          const badge = b.querySelector('span');
+          if (badge) {
+            badge.className = 'absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold';
+          }
+          const title = b.querySelector('.text-xs');
+          if (title) title.classList.remove('font-black', 'text-[#EC4899]');
+        });
+
+        btn.classList.add('border-2', 'border-[#EC4899]', 'bg-[#EC4899]/5');
+        btn.classList.remove('border-zinc-200', 'dark:border-zinc-700');
+        const activeBadge = btn.querySelector('span');
+        if (activeBadge) {
+          activeBadge.className = 'absolute top-2 right-2 text-[9px] px-1.5 py-0.2 rounded-md bg-[#EC4899] text-white font-black';
+        }
+        const activeTitle = btn.querySelector('.text-xs');
+        if (activeTitle) activeTitle.classList.add('font-black', 'text-[#EC4899]');
+
+        applyLayoutStyle(selectedLayout);
+      });
+    });
+
+    // --- 4. TOGGLE LIVE PHOTO ---
+    const btnToggleLive = document.getElementById('btn-toggle-live');
+    let isLiveOn = true;
+
+    btnToggleLive?.addEventListener('click', () => {
+      isLiveOn = !isLiveOn;
+      const statusBadge = btnToggleLive.querySelector('span:last-child');
+      if (isLiveOn) {
+        statusBadge.textContent = 'ON ✨';
+        statusBadge.className = 'px-1.5 py-0.2 rounded-full bg-white/20 text-[10px] font-extrabold';
+        btnToggleLive.classList.remove('bg-zinc-400');
+        btnToggleLive.classList.add('bg-[#EC4899]');
+      } else {
+        statusBadge.textContent = 'OFF';
+        statusBadge.className = 'px-1.5 py-0.2 rounded-full bg-black/20 text-[10px] font-extrabold';
+        btnToggleLive.classList.remove('bg-[#EC4899]');
+        btnToggleLive.classList.add('bg-zinc-400');
+      }
+    });
+
+    // --- 5. FILTER SUB-TAB TOGGLE ---
+    const subtabPresetBtn = document.getElementById('subtab-preset-btn');
+    const subtabAdjustBtn = document.getElementById('subtab-adjust-btn');
+    const panelPresetsGrid = document.getElementById('panel-presets-grid');
+    const panelAdjustments = document.getElementById('panel-adjustments');
+
+    subtabPresetBtn?.addEventListener('click', () => {
+      subtabPresetBtn.className = "px-3.5 py-1 rounded-full bg-white dark:bg-zinc-700 text-[#EC4899] dark:text-pink-300 shadow-2xs cursor-pointer";
+      subtabAdjustBtn.className = "px-3.5 py-1 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer";
+      panelPresetsGrid?.classList.remove('hidden');
+      panelAdjustments?.classList.add('hidden');
+    });
+
+    subtabAdjustBtn?.addEventListener('click', () => {
+      subtabAdjustBtn.className = "px-3.5 py-1 rounded-full bg-white dark:bg-zinc-700 text-[#EC4899] dark:text-pink-300 shadow-2xs cursor-pointer";
+      subtabPresetBtn.className = "px-3.5 py-1 rounded-full text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 cursor-pointer";
+      panelAdjustments?.classList.remove('hidden');
+      panelPresetsGrid?.classList.add('hidden');
+    });
+
+    // --- 6. TUKAR URUTAN FOTO ---
+    let selectedFirstIndex = null;
+    const swapBtns = document.querySelectorAll('.btn-swap-photo');
+
+    swapBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-index'));
+
+        if (selectedFirstIndex === null) {
+          selectedFirstIndex = idx;
+          btn.classList.add('ring-4', 'ring-[#EC4899]');
+        } else {
+          const temp = photoDataList[selectedFirstIndex];
+          photoDataList[selectedFirstIndex] = photoDataList[idx];
+          photoDataList[idx] = temp;
+
+          swapBtns.forEach(b => b.classList.remove('ring-4', 'ring-[#EC4899]'));
+          selectedFirstIndex = null;
+
+          renderPhotoImages();
+        }
+      });
+    });
+
+    // --- 7. INPUT CAPTION DINAMIS ---
+    const inputCaption = document.getElementById('input-caption');
+    const captionPreview = document.getElementById('caption-preview');
+
+    inputCaption?.addEventListener('input', (e) => {
+      captionPreview.textContent = e.target.value || 'fotokita.space 💖';
+    });
+
+    // --- 8. GANTI WARNA BINGKAI ---
+    const photostripCard = document.getElementById('photostrip-card');
+    const colorFrameBtns = document.querySelectorAll('.btn-color-frame');
+
+    colorFrameBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedColor = btn.getAttribute('data-color');
+        const textColor = btn.getAttribute('data-textcolor');
+
+        photostripCard.className = `relative w-full max-w-xs sm:max-w-sm p-4 rounded-3xl shadow-2xl transition-all duration-300 space-y-3 overflow-hidden border border-pink-200/50 mx-auto ${selectedColor}`;
+        captionPreview.className = `font-space text-xs font-bold tracking-wide break-words ${textColor}`;
+
+        colorFrameBtns.forEach(b => b.classList.remove('ring-2', 'ring-offset-2', 'ring-[#EC4899]'));
+        btn.classList.add('ring-2', 'ring-offset-2', 'ring-[#EC4899]');
+      });
+    });
+
+    // --- 9. COVER STYLES OVERLAY ---
+    const coverBtns = document.querySelectorAll('.btn-cover');
+    const stickerOverlay = document.getElementById('sticker-overlay');
+
+    const coverTemplates = {
+      bunny: `<div class="flex justify-between items-center text-xl"><span>🐰</span><span>✨</span></div><div class="flex justify-between items-center text-xl"><span>🎀</span><span>🐰</span></div>`,
+      kpop: `<div class="flex justify-between items-center text-xl"><span>👑</span><span>🫶</span></div><div class="flex justify-between items-center text-xl"><span>⭐</span><span>👑</span></div>`,
+      kawaii: `<div class="flex justify-between items-center text-xl"><span>🌸</span><span>🍦</span></div><div class="flex justify-between items-center text-xl"><span>🍭</span><span>✨</span></div>`,
+      "coquette-angel": `<div class="flex justify-between items-center text-xl"><span>🪽</span><span>🎀</span></div><div class="flex justify-between items-center text-xl"><span>✨</span><span>🪽</span></div>`,
+      y2k: `<div class="flex justify-between items-center text-xl"><span>💖</span><span>⭐</span></div><div class="flex justify-between items-center text-xl"><span>✨</span><span>💖</span></div>`,
+      ribbon: `<div class="flex justify-between items-center text-xl"><span>🎀</span><span>💖</span></div><div class="flex justify-between items-center text-xl"><span>💖</span><span>🎀</span></div>`,
+      none: ''
+    };
+
+    coverBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const coverType = btn.getAttribute('data-cover');
+        stickerOverlay.innerHTML = coverTemplates[coverType] || '';
+
+        coverBtns.forEach(b => {
+          b.classList.remove('border-2', 'border-[#EC4899]', 'bg-[#EC4899]/5');
+          b.classList.add('border-zinc-200', 'dark:border-zinc-700');
+        });
+
+        btn.classList.add('border-2', 'border-[#EC4899]', 'bg-[#EC4899]/5');
+        btn.classList.remove('border-zinc-200', 'dark:border-zinc-700');
+      });
+    });
+
+    // --- 10. FILTER PRESETS & SLIDERS ---
+    let activePreset = 'none';
+    const badgeActivePreset = document.getElementById('badge-active-preset');
+
+    const sliderBrightness = document.getElementById('slider-brightness');
+    const sliderContrast = document.getElementById('slider-contrast');
+    const sliderSaturate = document.getElementById('slider-saturate');
+
+    const valBrightness = document.getElementById('val-brightness');
+    const valContrast = document.getElementById('val-contrast');
+    const valSaturate = document.getElementById('val-saturate');
+
+    function applyCombinedFilter() {
+      const presetStr = activePreset === 'none' ? '' : activePreset;
+      const brightnessStr = `brightness(${sliderBrightness.value}%)`;
+      const contrastStr = `contrast(${sliderContrast.value}%)`;
+      const saturateStr = `saturate(${sliderSaturate.value}%)`;
+
+      const finalFilter = `${presetStr} ${brightnessStr} ${contrastStr} ${saturateStr}`.trim();
+
+      document.querySelectorAll('.filter-target').forEach(img => {
+        img.style.filter = finalFilter;
+      });
+    }
+
+    const presetBtns = document.querySelectorAll('.btn-preset');
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activePreset = btn.getAttribute('data-preset');
+        const presetName = btn.querySelector('.text-xs')?.textContent || 'Original';
+        badgeActivePreset.textContent = presetName;
+
+        presetBtns.forEach(b => {
+          b.classList.remove('border-2', 'border-[#EC4899]', 'bg-[#EC4899]/5');
+          b.querySelector('div')?.classList.remove('text-[#EC4899]');
+          b.classList.add('border-zinc-200', 'dark:border-zinc-700');
+        });
+
+        btn.classList.add('border-2', 'border-[#EC4899]', 'bg-[#EC4899]/5');
+        btn.querySelector('div')?.classList.add('text-[#EC4899]');
+        btn.classList.remove('border-zinc-200', 'dark:border-zinc-700');
+
+        applyCombinedFilter();
+      });
+    });
+
+    [sliderBrightness, sliderContrast, sliderSaturate].forEach(slider => {
+      slider?.addEventListener('input', () => {
+        valBrightness.textContent = `${sliderBrightness.value}%`;
+        valContrast.textContent = `${sliderContrast.value}%`;
+        valSaturate.textContent = `${sliderSaturate.value}%`;
+        applyCombinedFilter();
+      });
+    });
+
+    document.getElementById('btn-reset-sliders')?.addEventListener('click', () => {
+      sliderBrightness.value = 100;
+      sliderContrast.value = 100;
+      sliderSaturate.value = 100;
+
+      valBrightness.textContent = '100%';
+      valContrast.textContent = '100%';
+      valSaturate.textContent = '100%';
+
+      applyCombinedFilter();
+    });
+
+    // --- 11. SIMPAN FOTO STATIS (PNG HD) ---
+    const btnDownloadImage = document.getElementById('btn-download-image');
+    btnDownloadImage?.addEventListener('click', async () => {
+      const originalText = btnDownloadImage.innerHTML;
+      btnDownloadImage.innerText = "⏳ Memproses Gambar...";
+      btnDownloadImage.disabled = true;
+
+      try {
+        const canvas = await html2canvas(photostripCard, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: null
+        });
+
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = `fotokita-photostrip-${Date.now()}.png`;
+        link.click();
+      } catch (err) {
+        alert("Gagal mengunduh foto. Silakan coba lagi!");
+      } finally {
+        btnDownloadImage.innerHTML = originalText;
+        btnDownloadImage.disabled = false;
+      }
+    });
+
+    // --- 12. SIMPAN VIDEO LIVE (MP4 / WEBM REEL RECORDING) ---
+    const btnDownloadVideo = document.getElementById('btn-download-video');
+    btnDownloadVideo?.addEventListener('click', async () => {
+      const originalText = btnDownloadVideo.innerHTML;
+      btnDownloadVideo.disabled = true;
+      btnDownloadVideo.innerText = "🎬 Memproses Video Live...";
+
+      try {
+        const cardCanvas = await html2canvas(photostripCard, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: null
+        });
+
+        const width = cardCanvas.width;
+        const height = cardCanvas.height;
+
+        const animCanvas = document.createElement('canvas');
+        animCanvas.width = width;
+        animCanvas.height = height;
+        const ctx = animCanvas.getContext('2d');
+
+        const stream = animCanvas.captureStream(30);
+        
+        let mimeType = 'video/webm;codecs=vp9';
+        if (MediaRecorder.isTypeSupported('video/mp4')) {
+          mimeType = 'video/mp4';
+        } else if (MediaRecorder.isTypeSupported('video/webm')) {
+          mimeType = 'video/webm';
+        }
+
+        const mediaRecorder = new MediaRecorder(stream, { mimeType });
+        const chunks = [];
+
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data.size > 0) chunks.push(e.data);
+        };
+
+        const recordPromise = new Promise((resolve) => {
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `fotokita-livevideo-${Date.now()}.${mimeType.includes('mp4') ? 'mp4' : 'webm'}`;
+            a.click();
+            URL.revokeObjectURL(url);
+            resolve();
+          };
+        });
+
+        mediaRecorder.start();
+
+        const fps = 30;
+        const duration = 3000;
+        const totalFrames = (duration / 1000) * fps;
+        let frame = 0;
+
+        const renderFrame = () => {
+          if (frame >= totalFrames) {
+            mediaRecorder.stop();
+            return;
+          }
+
+          const progress = frame / totalFrames;
+          const scale = 1 + 0.04 * Math.sin(progress * Math.PI * 2);
+
+          ctx.clearRect(0, 0, width, height);
+          ctx.save();
+          ctx.translate(width / 2, height / 2);
+          ctx.scale(scale, scale);
+          ctx.drawImage(cardCanvas, -width / 2, -height / 2);
+          ctx.restore();
+
+          frame++;
+          setTimeout(renderFrame, 1000 / fps);
+        };
+
+        renderFrame();
+        await recordPromise;
+
+      } catch (err) {
+        console.error(err);
+        alert("Gagal menyimpan video. Pastikan peramban Anda mendukung perekaman MediaRecorder.");
+      } finally {
+        btnDownloadVideo.innerHTML = originalText;
+        btnDownloadVideo.disabled = false;
+      }
+    });
+
+    // --- 13. SHARE BUTTON ---
+    document.getElementById('btn-share')?.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'fotokita.space 💖',
+            text: 'Lihat photostrip lucu buatan saya di fotokita.space!',
+            url: window.location.href,
+          });
+        } catch (e) {}
+      } else {
+        alert("Link tersalin ke clipboard!");
+      }
+    });
+  </script>
+
+</body>
+</html>
